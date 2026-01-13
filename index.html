@@ -12,135 +12,35 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
 
+    <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ou8foh5cqu"></script>
+
     <style>
-        :root {
-            --gold: #C5A059;
-            --gold-light: #E2D1A6;
-            --navy: #1B263B;
-            --bg: #FDFBF7;
-            --white: #ffffff;
-        }
-
+        :root {--gold: #C5A059;--gold-light: #E2D1A6;--navy: #1B263B;--bg: #FDFBF7;--white: #ffffff;}
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            line-height: 1.6;
-            word-break: keep-all;
-        }
-
-        .wrapper {
-            max-width: 450px;
-            margin: 0 auto;
-            background-color: var(--white);
-            min-height: 100vh;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
-            position: relative;
-            overflow-x: hidden;
-        }
+        body {font-family: 'Noto Sans KR', sans-serif;background-color: #f0f0f0;color: #333;line-height: 1.6;word-break: keep-all;}
+        .wrapper {max-width: 450px;margin: 0 auto;background-color: var(--white);min-height: 100vh;box-shadow: 0 0 30px rgba(0,0,0,0.1);position: relative;overflow-x: hidden;}
 
         /* Top Decoration */
-        .top-bar {
-            height: 6px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
-            width: 100%;
-        }
+        .top-bar {height: 6px;background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));width: 100%;}
 
         /* Main Section */
         .main-section { padding: 50px 30px 40px; text-center: center; text-align: center; }
-        .tag {
-            display: inline-block;
-            padding: 4px 16px;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-size: 12px;
-            letter-spacing: 0.3em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            border-radius: 50px;
-        }
-        .main-name {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 38px;
-            font-weight: 800;
-            color: var(--navy);
-            margin-bottom: 8px;
-            letter-spacing: -0.05em;
-        }
-        .main-sub {
-            color: var(--gold);
-            font-size: 14px;
-            letter-spacing: 0.2em;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-        }
+        .tag {display: inline-block;padding: 4px 16px;border: 1px solid var(--gold);color: var(--gold);font-size: 12px;letter-spacing: 0.3em;font-weight: bold;margin-bottom: 20px;border-radius: 50px;}
+        .main-name {font-family: 'Nanum Myeongjo', serif;font-size: 38px;font-weight: 800;color: var(--navy);margin-bottom: 8px;letter-spacing: -0.05em;}
+        .main-sub {color: var(--gold);font-size: 14px;letter-spacing: 0.2em;font-weight: 700;text-transform: uppercase;margin-bottom: 30px;}
 
         /* Image Frame */
-        .photo-frame {
-            position: relative;
-            margin: 0 10px;
-        }
-        .photo-border {
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            border-radius: 30px;
-            pointer-events: none;
-        }
-        .photo-container {
-            aspect-ratio: 4/5;
-            background-color: #f4f1ea;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(27, 38, 59, 0.15);
-            position: relative;
-        }
-        .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .photo-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 100px;
-            background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
-        }
+        .photo-frame {position: relative;margin: 0 10px;}
+        .photo-border {position: absolute;top: -10px; left: -10px; right: -10px; bottom: -10px;border: 1px solid rgba(197, 160, 89, 0.3);border-radius: 30px;pointer-events: none;}
+        .photo-container {aspect-ratio: 4/5;background-color: #f4f1ea;border-radius: 20px;overflow: hidden;box-shadow: 0 20px 40px rgba(27, 38, 59, 0.15);position: relative;}
+        .photo-container img {width: 100%;height: 100%;object-fit: cover;display: block;}
+        .photo-overlay {position: absolute;bottom: 0; left: 0; right: 0;height: 100px;background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);}
 
         /* Countdown */
-        .countdown-box {
-            margin: 40px 25px;
-            background-color: var(--navy);
-            border-radius: 25px;
-            padding: 25px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-        .countdown-box::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 5px;
-            background-color: var(--gold);
-        }
-        .dday-label {
-            font-size: 10px;
-            color: var(--gold);
-            font-weight: bold;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-        .dday-date {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 20px;
-            font-style: italic;
-        }
+        .countdown-box {margin: 40px 25px;background-color: var(--navy);border-radius: 25px;padding: 25px;color: white;display: flex;justify-content: space-between;align-items: center;position: relative;}
+        .countdown-box::before {content: '';position: absolute;left: 0; top: 0; bottom: 0;width: 5px;background-color: var(--gold);}
+        .dday-label {font-size: 10px;color: var(--gold);font-weight: bold;letter-spacing: 0.2em;text-transform: uppercase;}
+        .dday-date {font-family: 'Nanum Myeongjo', serif;font-size: 20px;font-style: italic;}
         .timer { display: flex; gap: 15px; }
         .timer-item { text-align: center; }
         .timer-val { font-size: 24px; font-weight: bold; font-family: 'Nanum Myeongjo', serif; color: var(--gold-light); }
@@ -148,141 +48,31 @@
 
         /* Greeting */
         .section { padding: 80px 40px; text-align: center; }
-        .section-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 26px;
-            color: var(--navy);
-            margin-bottom: 40px;
-            letter-spacing: 0.3em;
-            font-weight: 700;
-        }
-        .greeting-text {
-            font-size: 17px;
-            line-height: 2.2;
-            color: #555;
-            font-weight: 300;
-        }
-        .family-list {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid #eee;
-        }
+        .section-title {font-family: 'Nanum Myeongjo', serif;font-size: 26px;color: var(--navy);margin-bottom: 40px;letter-spacing: 0.3em;font-weight: 700;}
+        .greeting-text {font-size: 17px;line-height: 2.2;color: #555;font-weight: 300;}
+        .family-list {margin-top: 60px;padding-top: 40px;border-top: 1px solid #eee;}
         .family-item { font-family: 'Nanum Myeongjo', serif; font-size: 19px; margin-bottom: 10px; color: var(--navy); }
         .family-label { font-size: 13px; color: #aaa; margin-right: 10px; font-family: 'Noto Sans KR', sans-serif; }
 
         /* Event Info (Navy) */
-        .event-section {
-            background-color: var(--navy);
-            color: white;
-            padding: 100px 30px;
-        }
+        .event-section {background-color: var(--navy);color: white;padding: 100px 30px;}
         .info-item { margin-bottom: 60px; }
         .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: 15px; display: block;}
         .info-val-main { font-family: 'Nanum Myeongjo', serif; font-size: 28px; font-weight: 700; margin-bottom: 5px; color: var(--gold-light); }
         .info-val-sub { font-size: 18px; opacity: 0.7; font-weight: 300; }
         .map-btns { display: flex; gap: 10px; margin-top: 40px; justify-content: center; }
-        .btn-map {
-            flex: 1;
-            padding: 16px;
-            border-radius: 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Gift Section */
-        .gift-section { padding: 80px 30px; text-align: center; background-color: var(--white); }
-        .btn-action {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: 24px;
-            background-color: var(--bg);
-            border: 1px solid #eee;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s;
-        }
-        .btn-action:active { transform: scale(0.98); }
-        .action-icon {
-            width: 45px; height: 45px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .action-text { flex: 1; text-align: left; margin-left: 15px; }
-        .action-title { font-size: 16px; font-weight: bold; color: var(--navy); }
-        .action-desc { font-size: 11px; color: #999; }
-
-        /* Account Layer */
-        .account-layer {
-            display: none;
-            margin-top: 20px;
-            padding: 25px;
-            background: var(--bg);
-            border-radius: 25px;
-            border: 2px solid rgba(197, 160, 89, 0.1);
-            text-align: left;
-        }
-        .account-item { margin-bottom: 25px; }
-        .account-item:last-child { margin-bottom: 0; }
-        .acc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .acc-name { font-size: 13px; font-weight: bold; color: var(--gold); letter-spacing: 0.1em; }
-        .btn-copy {
-            font-size: 11px;
-            padding: 5px 12px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .acc-number { font-family: 'Nanum Myeongjo', serif; font-size: 18px; color: var(--navy); font-weight: 700; }
+        .btn-map {flex: 1;padding: 16px;border-radius: 15px;background: rgba(255,255,255,0.05);border: 1px solid rgba(255,255,255,0.1);color: white;text-decoration: none;font-size: 14px;font-weight: bold;backdrop-filter: blur(10px);}
 
         /* Footer */
-        .footer {
-            padding: 80px 40px;
-            text-align: center;
-            background-color: var(--bg);
-            border-top: 1px solid #eee;
-        }
+        .footer {padding: 80px 40px;text-align: center;background-color: var(--bg);border-top: 1px solid #eee;}
         .footer-msg { font-size: 17px; color: #888; font-style: italic; margin-bottom: 40px; font-weight: 300; }
         .copyright { font-size: 10px; color: #ccc; letter-spacing: 0.5em; font-weight: bold; }
 
         /* Toast */
-        #toast {
-            position: fixed;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(27, 38, 59, 0.9);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+        #toast {position: fixed;bottom: 50px;left: 50%;transform: translateX(-50%);background: rgba(27, 38, 59, 0.9);color: white;padding: 12px 30px;border-radius: 50px;font-size: 14px;font-weight: bold;display: none;z-index: 1000;box-shadow: 0 10px 30px rgba(0,0,0,0.3);}
 
         /* Responsive Fix for small screens */
-        @media (max-width: 360px) {
-            .main-name { font-size: 32px; }
-            .timer { gap: 8px; }
-            .timer-val { font-size: 20px; }
-        }
+        @media (max-width: 360px) {  .main-name { font-size: 32px; }  .timer { gap: 8px; }  .timer-val { font-size: 20px; }  }
     </style>
 </head>
 <body>
@@ -370,9 +160,9 @@
             <a href="https://map.naver.com" target="_blank" class="btn-map">네이버 지도</a>
             <a href="https://map.kakao.com" target="_blank" class="btn-map">카카오 맵</a>
         </div>
+
+        <div id="map" style="width:100%; height:260px; border-radius:16px; margin-top:30px;"></div>
     </section>
-
-
 
     <!-- Footer -->
     <footer class="footer">
@@ -392,6 +182,23 @@
         toast.text(msg).fadeIn(300).delay(1500).fadeOut(300);
     }
 
+    // 네이버 지도 초기화
+    function initMap() {
+        const location = new naver.maps.LatLng(37.570526, 126.975942);
+
+        const map = new naver.maps.Map('map', {
+            center: location,
+            zoom: 16,
+            zoomControl: true,
+        });
+
+        const marker = new naver.maps.Marker({
+            position: location,
+            map: map,
+        });
+    }
+
+    // 문서 로드 후 실행
     $(document).ready(function() {
         // Toggle Account Layer
         $("#toggleAccount").on("click", function() {
@@ -437,6 +244,8 @@
             console.log("Image not found, check filename: image.png");
             $(this).parent().append('<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:12px; padding:20px; text-align:center;">사진 파일(image.png)을 찾을 수 없습니다.</div>');
         });
+
+        initMap();
     });
 </script>
 
