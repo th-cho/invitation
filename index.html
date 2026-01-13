@@ -14,7 +14,7 @@
 
 <!--    <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ou8foh5cqu"></script>-->
 <!--    <script src="//oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ou8foh5cqu"></script>-->
-
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ou8foh5cqu"></script>
 
     <style>
         :root {--gold: #C5A059;--gold-light: #E2D1A6;--navy: #1B263B;--bg: #FDFBF7;--white: #ffffff;}
@@ -202,6 +202,8 @@
 
     // 문서 로드 후 실행
     $(document).ready(function() {
+        initMap();
+
         // Toggle Account Layer
         $("#toggleAccount").on("click", function() {
             const layer = $("#accountLayer");
@@ -246,10 +248,7 @@
             console.log("Image not found, check filename: image.png");
             $(this).parent().append('<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:12px; padding:20px; text-align:center;">사진 파일(image.png)을 찾을 수 없습니다.</div>');
         });
-
-        initMap();
     });
 </script>
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ou8foh5cqu"></script>
 </body>
 </html>
